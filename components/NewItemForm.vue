@@ -1,8 +1,8 @@
 <template>
     <div>
         <form @submit.prevent="NewTodo">
-            <input v-model="newTodoName" placeholder="Введите задание"  />
-            <input type="submit" value="+" />
+            <input v-model="newTodoName" placeholder="Введите задание"/>
+            <input type="submit" value="+"/>
         </form>
     </div>
 </template>
@@ -16,8 +16,8 @@
         },
         methods: {
             NewTodo() {
-                this.$emit('submit', this.newTodoName);
-                this.newTodoName = "";
+                this.$emit("submit", this.newTodoName)
+                this.newTodoName = ""
             }
         }
     }

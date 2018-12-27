@@ -4,7 +4,7 @@
         <h3>Не выполнено</h3>
         <div v-for="(todo, index) in todoList" :key="todo.id">
             <check-box v-if="!todo.maked" :todos="todo" :choosed="choosed" :index="index" @del="todoList.splice(index,1)"
-                       @choosed="chooseItem" @changed="ChangeName" @canсeled="Canseled"  />
+                       @choosed="chooseItem" @changed="ChangeName" @canceled="Canceled"  />
         </div>
         <h3>
             Выполнено
@@ -12,7 +12,7 @@
         </h3>
         <div v-for="(todo, index) in todoList" :key="todo.id+'a'">
             <check-box v-if="todo.maked" :todos="todo" :choosed="choosed" :index="index" @del="todoList.splice(index,1)"
-                       @choosed="chooseItem" @changed="ChangeName" @canсeled="Canseled"  />
+                       @choosed="chooseItem" @changed="ChangeName" @canceled="Canceled"  />
         </div>
     </div>
 </template>
@@ -39,11 +39,12 @@
             chooseItem(choosedId) {
                 this.choosed = choosedId;
             },
+            // todo: имена с маленькой буквы
             ChangeName(newName) {
                 this.todoList[newName[1]].name = newName[0];
                 this.choosed = -1;
             },
-            Canseled() {
+            Canceled() {
                 this.choosed = -1;
             },
             DelAllDone() {

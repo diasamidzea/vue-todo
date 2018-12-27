@@ -4,24 +4,27 @@
             {{ todos.name }}
         </span>
         <form v-if="(todos.id === choosed)" @submit.prevent="ChangeName" style="display: inline">
-            <input v-model="newName"  />
-            <input type="submit" value="ok"  />
-            <input type="button" @click="$emit('canсeled'); newName = todos.name" value="cansel" />
+            <input v-model="newName"/>
+            <input type="submit" value="ok"/>
+            <input type="button" @click="$emit('canceled'); newName = todos.name" value="cancel"/>
         </form>
     </div>
 </template>
 
 <script>
+    // todo: стиили из шаблона вынести в <style>
     export default {
-        props: ['todos', 'choosed'],
+        // @todo
+        props: ["todos", "choosed"],
         data() {
             return {
                 newName: this.todos.name,
             }
         },
         methods: {
-            ChangeName () {
-                this.$emit('changed',this.newName);
+            // @todo
+            ChangeName() {
+                this.$emit("changed", this.newName)
             }
 
         }

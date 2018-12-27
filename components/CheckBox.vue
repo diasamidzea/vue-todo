@@ -1,23 +1,21 @@
 <template>
     <div>
-        <input type="checkbox" v-model="todos.maked"  />
+        <input type="checkbox" v-model="todos.maked"/>
         <item-name-box :todos="todos" :choosed="choosed" @choosed="$emit('choosed', todos.id)"
-                       @changed="$emit('changed', [$event, index])" @canсeled="$emit('canсeled')" />
-        <input type="button" value="x" @click="$emit('del')"  />
+                       @changed="$emit('changed', [$event, index])" @canceled="$emit('canceled')"/>
+        <input type="button" value="x" @click="$emit('del')"/>
     </div>
 </template>
 
 <script>
+    // @todo: название компонента сменить (вводит в заблуждение)
     import ItemNameBox from "./ItemNameBox.vue"
 
     export default {
         components: {
             ItemNameBox,
         },
-        props: ['todos', 'choosed', 'index'],
+        // @todo: todos - во множественном числе, должно быть в единственном и более точное название
+        props: ["todos", "choosed", "index"],
     }
 </script>
-
-<style scoped>
-
-</style>
