@@ -1,29 +1,18 @@
 <template>
     <div>
-        <new-item-form :todolist="todoList"></new-item-form>
+        <new-item-form  @submit="NewTodo" />
         <h3>Не выполнено</h3>
         <div v-for="(todo, index) in todoList" :key="todo.id">
-            <check-box
-                    v-if="!todo.maked"
-                    :todos="todo"
-                    :choosed="choosed"
-                    @del="todoList.splice(index,1)"
-                    @choosed="chooseItem"
-            ></check-box>
+            <check-box v-if="!todo.maked" :todos="todo" :choosed="choosed" :index="index" @del="todoList.splice(index,1)"
+                       @choosed="chooseItem" @changed="ChangeName" @canсeled="Canseled"  />
         </div>
-
         <h3>
             Выполнено
-            <del-all-done-button :todos="todoList"></del-all-done-button>
+            <input type="button" value="Удалить все" @click="DelAllDone"  />
         </h3>
-        <div v-for="(todo, index) in todoList">
-            <check-box
-                    v-if="todo.maked"
-                    :todos="todo"
-                    :choosed="choosed"
-                    @del="todoList.splice(index,1)"
-                    @changed="choosed = -1"
-            ></check-box>
+        <div v-for="(todo, index) in todoList" :key="todo.id+'a'">
+            <check-box v-if="todo.maked" :todos="todo" :choosed="choosed" :index="index" @del="todoList.splice(index,1)"
+                       @choosed="chooseItem" @changed="ChangeName" @canсeled="Canseled"  />
         </div>
     </div>
 </template>
@@ -31,13 +20,11 @@
 <script>
     import NewItemForm from "./components/NewItemForm.vue"
     import CheckBox from "./components/CheckBox.vue"
-    import DelAllDoneButton from "./components/DelAllDoneButton.vue"
+
     export default {
         components: {
-            //hello,
             NewItemForm,
             CheckBox,
-            DelAllDoneButton,
         },
         data() {
             return {
@@ -51,7 +38,31 @@
         methods:{
             chooseItem(choosedId) {
                 this.choosed = choosedId;
+            },
+            ChangeName(newName) {
+                this.todoList[newName[1]].name = newName[0];
+                this.choosed = -1;
+            },
+            Canseled() {
+                this.choosed = -1;
+            },
+            DelAllDone() {
+                for ( let i=0; i<this.todoList.length; i++) {
+                    if (this.todoList[i].maked) {
+                        this.todoList.splice(i,1);
+                        i--;
+                    }
+                }
+            },
+            NewTodo(newTodoName) {
+                if (newTodoName) {
+                    this.todoList.push({
+                        id: (this.todoList[this.todoList.length-1].id+1),
+                        maked: false,
+                        name: newTodoName
+                    });
+                }
             }
-        },
+        }
     }
 </script>

@@ -1,10 +1,7 @@
 <template>
     <div>
-        <form @submit.prevent="newtodo">
-            <input
-                    v-model="newTodoName"
-                    placeholder="Введите задание"
-            >
+        <form @submit.prevent="NewTodo">
+            <input v-model="newTodoName" placeholder="Введите задание"  />
             <input type="submit" value="+" />
         </form>
     </div>
@@ -12,27 +9,16 @@
 
 <script>
     export default {
-        props: [ "todolist" ],
         data() {
             return {
                 newTodoName: ""
             }
         },
         methods: {
-            newtodo() {
-                if (this.newTodoName) {
-                    this.todolist.push({
-                        id: (this.todolist[this.todolist.length-1].id+1),
-                        maked: false,
-                        name: this.newTodoName
-                    });
-                    this.newTodoName = "";
-                };
+            NewTodo() {
+                this.$emit('submit', this.newTodoName);
+                this.newTodoName = "";
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

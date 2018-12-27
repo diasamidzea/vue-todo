@@ -1,18 +1,12 @@
 <template>
     <div style="display: inline">
-        <span
-                @click="$emit('choosed')"
-                v-if="(todos.id !== choosed)"
-        >{{ todos.name }}
+        <span @click="$emit('choosed')" v-if="(todos.id !== choosed)">
+            {{ todos.name }}
         </span>
-
-        <form
-                v-if="(todos.id === choosed)"
-                @submit.prevent = "$emit('changed')"
-                v-model="newName"
-                style="display: inline"
-        >
-            <input v-model="newName"/>
+        <form v-if="(todos.id === choosed)" @submit.prevent="ChangeName" style="display: inline">
+            <input v-model="newName"  />
+            <input type="submit" value="ok"  />
+            <input type="button" @click="$emit('canсeled'); newName = todos.name" value="cansel" />
         </form>
     </div>
 </template>
@@ -23,19 +17,13 @@
         data() {
             return {
                 newName: this.todos.name,
-                //isMarkedForChange: false
             }
         },
-        /*methods: {
-            MarkedForChange () {
-                this.isMarkedForChange=true;
+        methods: {
+            ChangeName () {
+                this.$emit('changed',this.newName);
             }
 
-        }*/
+        }
     }
-    //console.log(this.marked);
 </script>
-
-<style scoped>
-
-</style>
