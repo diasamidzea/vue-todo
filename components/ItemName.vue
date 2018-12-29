@@ -20,11 +20,9 @@
             }
         },
         methods: {
-            // @todo
             ChangeName() {
                 this.$emit("change", this.newName)
             }
-
         }
     }
 </script>
